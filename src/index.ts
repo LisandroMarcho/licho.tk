@@ -6,6 +6,7 @@ const originRedirect = path.join(__dirname, '_redirect');
 const resultRedirect = path.join(__dirname, '..', 'public', '_redirect');
 
 fs.mkdirSync('public');
+fs.mkdirSync('./links');
 // Copy template _redirect file to public dir
 fs.copyFileSync(originRedirect, resultRedirect);
 
