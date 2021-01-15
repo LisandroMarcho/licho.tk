@@ -3,9 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>licho.ml - url shortener</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
+        body {
+            background-color: #212f3d;
+            font-family: 'Permanent Marker', cursive;
+        }
+
+        h1 {
+            font-size: 100px;
+            position: absolute;
+            padding: 0;
+            margin: 0;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .front {
+            color: #a3e4d7;
+        }
+
+        .back {
+            margin: 10px;
+            z-index: -1;
+            color:   #117a65;
+        }
+
+        p {
+            position: absolute;
+            padding: 0;
+            margin: 0;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #445361;
+        }
+
+        a {
+            color: #117a65;
+            text-decoration: none;
+        }
+
+        a:hover {
+            color:#a3e4d7;
+        }
+
+        .badge {
+            position: absolute;
+            bottom: 2px;
+            right: 10px;
+        }
+    </style>
 </head>
 <body>
-    
+    <h1 class="front">licho.ml</h1>
+    <h1 class="back">licho.ml</h1>
+    <p>
+        Made with ☕ by 
+        <a href="https://marchionni.ml" target="_blank">Lisandro Marchionni</a>
+    </p>
+    <a  class="badge" href="https://github.com/LisandroMarcho/licho.ml" target="_blank">
+        <img src="https://img.shields.io/badge/Code-GitHub-%23117a65" alt="Repository badge">
+    </a>
 </body>
 </html>
