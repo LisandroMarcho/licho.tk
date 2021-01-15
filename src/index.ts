@@ -5,11 +5,12 @@ import Redirect from './schemas/Redirect.interface';
 const originRedirect = path.join(__dirname, '_redirect');
 const resultRedirect = path.join(__dirname, '..', 'public', '_redirect');
 
+fs.mkdirSync('public');
 // Copy template _redirect file to public dir
-fs.copyFileSync(originRedirect, resultRedirect)
+fs.copyFileSync(originRedirect, resultRedirect);
 
 // Create write stream and get list of links
-const _redirect = fs.createWriteStream(resultRedirect, { flags: 'a' })
+const _redirect = fs.createWriteStream(resultRedirect, { flags: 'a' });
 const shortcuts = fs.readdirSync(path.join(__dirname, 'links'));
 
 // Append links to file
