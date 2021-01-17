@@ -1,22 +1,24 @@
-import * as fs from 'fs';
+import { createWriteStream, readdirSync, readFileSync } from 'fs';
 import * as path from 'path';
-import Redirect from './schemas/Redirect.interface';
+import { Redirect, validate } from './validator/Redirect.validator';
 
 const _redirectsPath = path.join(__dirname, '..', 'public', '_redirects');
 
-// Copy template _redirect file to public dir
 // Create write stream and get list of links
-const _redirects = fs.createWriteStream(_redirectsPath, { flags: 'a' });
-const shortcuts = fs.readdirSync(path.join(__dirname, 'links'));
+const _redirects = createWriteStream(_redirectsPath, { flags: 'w' });
+const shortcuts = readdirSync(path.join(__dirname, 'links'));
 
 // Append links to file
 shortcuts.forEach(file => {
-    const shContent = fs.readFileSync(
-        path.join(__dirname, 'links', file), 
-        { encoding: 'utf8' }
-    );
-    const sh: Redirect = JSON.parse(shContent);
-    _redirects.write(`${sh.from} ${sh.to} ${sh.status ? sh.status : 301 } \n`);
+  const shContent = readFileSync(
+    path.join(__dirname, 'links', file),
+    { encoding: 'utf8' }
+  );
+
+  const sh: Redirect = JSON.parse(shContent);
+  if(validate(sh))
+    _redirects.write(`${sh.from} ${sh.to} ${sh.status ?? 301} \n`);
+  else throw new Error(`Syntax error in ${file}`);
 });
 
 // Finish write
