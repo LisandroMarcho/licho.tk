@@ -1,25 +1,17 @@
-import { createWriteStream, readdirSync, readFileSync } from 'fs';
-import * as path from 'path';
-import { Redirect, validate } from './validator/Redirect.validator';
+import { createWriteStream } from 'fs';
+import { join } from 'path';
+import listLinks from './listLinks';
+import parseLink from './parseLink';
 
-const _redirectsPath = path.join(__dirname, '..', 'public', '_redirects');
-
-// Create write stream and get list of links
+const _redirectsPath = join(__dirname, '..', 'public', '_redirects');
 const _redirects = createWriteStream(_redirectsPath, { flags: 'w' });
-const shortcuts = readdirSync(path.join(__dirname, 'links'));
 
-// Append links to file
-shortcuts.forEach(file => {
-  const shContent = readFileSync(
-    path.join(__dirname, 'links', file),
-    { encoding: 'utf8' }
-  );
+const linksToRead = listLinks();
 
-  const sh: Redirect = JSON.parse(shContent);
-  if(validate(sh))
-    _redirects.write(`${sh.from} ${sh.to} ${sh.status ?? 301} \n`);
-  else throw new Error(`Syntax error in ${file}`);
+linksToRead.forEach(file => {
+  const shortcut = parseLink(file);
+  if(!shortcut) return;
+  _redirects.write(`/${shortcut.from} ${shortcut.to} ${shortcut.status} \n`);
 });
 
-// Finish write
 _redirects.close();
