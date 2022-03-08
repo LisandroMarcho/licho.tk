@@ -23,8 +23,8 @@ For development, first clone the repository. Then run:
     
 To create new urls, create a YML file inside of `/src/links` with the following content:
 ```yml
-from: "short-url",
-to: "https://very-long-url-messed-up.com",
+from: "short-url"
+to: "https://very-long-url-messed-up.com"
 status: 301 # this is optional
 ```
 
