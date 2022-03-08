@@ -21,13 +21,22 @@ For development, first clone the repository. Then run:
   npm install
 ```
     
-To create new urls, create a JSON file inside of `/src/links` with the following content:
-```json
-{
-	"from":"short-url",
-	"to": "https://very-long-url-messed-up.com",
-    "status": 301 // this parameter is optional
-}
+To create new urls, create a YML file inside of `/src/links` with the following content:
+```yml
+from: "short-url",
+to: "https://very-long-url-messed-up.com",
+status: 301 # this is optional
 ```
 
-When pushing changes to the repository, Netlify automatically will build the site and your short url will be live.
+## Build `_redirect`
+
+To build the `_redirect` file just run:
+```bash
+yarn build
+# or
+npm run build
+```
+
+## Netlify setup
+
+For this to work, you need to configure your Netlify's site's build settings, to run the build command and select the public folder to be served.
