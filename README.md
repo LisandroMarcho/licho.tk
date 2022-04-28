@@ -4,7 +4,7 @@
 A URL shortener powered by Netlify's redirects and written in TypeScript
 
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/fc8ba18b-a982-44a0-89d9-4b37791eea67/deploy-status)](https://app.netlify.com/sites/wizardly-dubinsky-7ed104/deploys)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/fc8ba18b-a982-44a0-89d9-4b37791eea67/deploy-status)](https://app.netlify.com/sites/wizardly-dubinsky-7ed104/deploys) [![test](https://github.com/LisandroMarcho/licho.tk/actions/workflows/tests.yml/badge.svg)](https://github.com/LisandroMarcho/licho.tk/actions/workflows/tests.yml)
 ## Deployment
 
 First, you will need to clone or fork this repository. After that, you can create a Netlify site and use that repository as source.
