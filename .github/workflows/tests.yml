@@ -1,6 +1,9 @@
 name: test
 on: 
-  - pull_request
+  pull_request:
+    types: [opened, synchronize, reopened]
+  push:
+    branches: [master]
 
 jobs:
   build:
