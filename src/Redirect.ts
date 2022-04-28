@@ -1,9 +1,15 @@
+interface RedirectType {
+  from: string
+  to: string
+  status?: number
+}
+
 class Redirect {
   from: string;
   to: string;
-  status: number;
+  status?: number;
 
-  constructor({ from, to, status }) {
+  constructor({ from, to, status }: RedirectType) {
     if (!from) throw new Error("'from' can't be undefined");
     if (typeof from !== "string") throw new Error("'from' can only be a string");
     this.from = from;
