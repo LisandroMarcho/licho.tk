@@ -16,7 +16,7 @@ if (!getApps().length)
   app = initializeApp({
     credential: cert({
       clientEmail: process.env.CLIENT_EMAIL,
-      privateKey: process.env.FIREBASE_PRIVATE_KEY,
+      privateKey: process.env.FIREBASE_PRIVATE_KEY.replace(/\\n/gm, "\n"),
       projectId: process.env.FIREBASE_PROJECT_ID,
     }),
   });
