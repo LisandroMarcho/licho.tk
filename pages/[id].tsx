@@ -1,4 +1,6 @@
-import { db } from "../firebase-config";
+// import { db } from "../firebase-config";
+import { initializeApp, cert } from "firebase-admin/app";
+import { getFirestore } from "firebase-admin/firestore";
 import Head from "next/head";
 
 export default function ({ id }: { id: string }) {
@@ -25,6 +27,16 @@ export default function ({ id }: { id: string }) {
 }
 
 export async function getServerSideProps({ params }) {
+  const app = initializeApp({
+    credential: cert({
+      clientEmail: process.env.CLIENT_EMAIL,
+      privateKey: process.env.FIREBASE_PRIVATE_KEY.replace(/\\n/gm, "\n"),
+      projectId: process.env.FIREBASE_PROJECT_ID,
+    }),
+  });
+
+  const db = getFirestore(app);
+
   const { id }: { id: string } = params;
   const docSnap = await db.collection("shorts").doc(id).get();
 
