@@ -38,10 +38,12 @@ export async function getServerSideProps({ params }) {
   const db = getFirestore(app);
 
   const { id }: { id: string } = params;
+  console.log({ id });
   const docSnap = await db.collection("shorts").doc(id).get();
 
   if (docSnap.exists) {
     const docData = docSnap.data();
+    console.log({ docData });
 
     return {
       redirect: {
