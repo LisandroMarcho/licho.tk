@@ -1,7 +1,7 @@
 import { db } from "../firebase-config";
 import Head from "next/head";
 
-export default function ({ id }) {
+export default function ({ id }: { id: string }) {
   return (
     <>
       <Head>
@@ -25,7 +25,7 @@ export default function ({ id }) {
 }
 
 export async function getServerSideProps({ params }) {
-  const { id } = params;
+  const { id }: { id: string } = params;
   const docSnap = await db.collection("shorts").doc(id).get();
 
   if (docSnap.exists) {
