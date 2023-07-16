@@ -1,28 +1,42 @@
 "use client";
 
-import { useState } from "react";
+import axios from "axios";
+import { FormEventHandler, useId, useState } from "react";
+import FormInput from "./FormInput";
 
 export default function AddLink() {
   const [sourceUrl, setSourceUrl] = useState("");
+  const [shortUrl, setShortUrl] = useState("");
+  const id = useId();
+
+  const handleSubmit: FormEventHandler<HTMLFormElement> = (e) => {
+    e.preventDefault();
+
+    axios.post("/api/links", { sourceUrl, shortUrl });
+  };
 
   return (
-    <div className="bg-indigo-900 p-2 flex flex-col gap-2">
-      <div>
-        <label
-          htmlFor="first_name"
-          className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-        >
-          First name
-        </label>
-        <input
-          type="text"
-          id="first_name"
-          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          placeholder="John"
-          required
-        />
-      </div>
-      <button>🔗 Acortar vínculo</button>
-    </div>
+    <form
+      className="bg-indigo-900 p-2 flex flex-col gap-2 text-white"
+      onSubmit={handleSubmit}
+    >
+      <FormInput
+        id={`${id}-source-url`}
+        label="URL original"
+        setValue={setSourceUrl}
+        value={sourceUrl}
+        placeholder="https://example.com/long-url"
+        required={true}
+      />
+      <FormInput
+        id={`${id}-short-url`}
+        label="URL personalizada"
+        setValue={setShortUrl}
+        value={shortUrl}
+        placeholder="Mi-Link"
+        tag={true}
+      />
+      <button type="submit">🔗 Acortar vínculo</button>
+    </form>
   );
 }

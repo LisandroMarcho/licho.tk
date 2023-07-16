@@ -4,10 +4,12 @@ import { useEffect, useState } from "react";
 import LinkBox from "./LinkBox";
 
 export default function LinkList() {
-  const baseUrl = window.location.origin;
+  const [baseUrl, setBaseUrl] = useState("");
   const [linksData, setLinksData] = useState([]);
 
   useEffect(() => {
+    setBaseUrl(window.location.origin);
+
     fetch("/api/links")
       .then((res) => res.json())
       .then((res) => setLinksData(res));
