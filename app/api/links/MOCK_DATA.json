@@ -1,0 +1,23 @@
+[
+	{
+		"short_url": "discord",
+		"clicks": 61,
+		"created_at": "4/2/2022",
+		"user_id": 1,
+		"source_url": "https://discord.gg/jZe4Bug2AW"
+	},
+	{
+		"short_url": "developer",
+		"clicks": 61,
+		"created_at": "4/2/2022",
+		"user_id": 1,
+		"source_url": "https://lichodev.com.ar"
+	},
+	{
+		"short_url": "motores-js",
+		"clicks": 61,
+		"created_at": "4/2/2022",
+		"user_id": 1,
+		"source_url": "https://lichodev.github.io/motores.js/"
+	}
+]
