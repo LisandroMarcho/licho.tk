@@ -1,22 +1,28 @@
 import { NextResponse } from "next/server";
-import * as DATA from "./MOCK_DATA.json";
+import { redis } from "../../../lib/redis";
 
 export async function GET() {
-  return NextResponse.json(DATA.map((el) => el));
+  const redisRes = await redis.hgetall("links");
+  let response: Object[] = [];
+
+  if (typeof redisRes == "object") {
+    response = Object.values(redisRes as object);
+  }
+
+  return NextResponse.json(response);
 }
 
 export async function POST(req: Request) {
-  const { sourceUrl } = await req.json();
+  const { sourceUrl, shortUrl } = await req.json();
 
   const data = {
     source_url: sourceUrl,
     clicks: 0,
-    created_at: "04/20/2023",
-    short_url: "lorem",
-    user_id: Math.random(),
+    created_at: new Date(),
+    short_url: shortUrl,
   };
 
-  DATA.push(data);
-
+  // await redis.hset("links", { [shortUrl]: data });
+  console.log([...Array(6)].map((_) => (Math.random() * 10) | 0).join(""));
   return NextResponse.json(data);
 }

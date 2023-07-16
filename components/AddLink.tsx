@@ -34,6 +34,7 @@ export default function AddLink() {
         setValue={setShortUrl}
         value={shortUrl}
         placeholder="Mi-Link"
+        type="text"
         tag={true}
       />
       <button type="submit">🔗 Acortar vínculo</button>
