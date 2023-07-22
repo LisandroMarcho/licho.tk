@@ -1,23 +1,26 @@
 "use client";
 
 import axios from "axios";
-import { FormEventHandler, useId, useState } from "react";
+import { mutate } from "swr";
 import FormInput from "./FormInput";
+import type { CreateLinkDto } from "../lib/link";
+import { FormEventHandler, useId, useState } from "react";
 
 export default function AddLink() {
   const [sourceUrl, setSourceUrl] = useState("");
   const [shortUrl, setShortUrl] = useState("");
   const id = useId();
 
-  const handleSubmit: FormEventHandler<HTMLFormElement> = (e) => {
+  const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
 
-    axios.post("/api/links", { sourceUrl, shortUrl });
+    await axios.post<CreateLinkDto>("/api/links", { sourceUrl, shortUrl });
+    mutate("/api/links");
   };
 
   return (
     <form
-      className="bg-indigo-900 p-2 flex flex-col gap-2 text-white"
+      className="bg-secondary px-6 pt-6 pb-4 flex flex-col gap-4"
       onSubmit={handleSubmit}
     >
       <FormInput
@@ -37,7 +40,12 @@ export default function AddLink() {
         type="text"
         tag={true}
       />
-      <button type="submit">🔗 Acortar vínculo</button>
+      <button
+        type="submit"
+        className="bg-primary hover:bg-accent transition-colors py-2 px-6 self-start"
+      >
+        Crear 🔗
+      </button>
     </form>
   );
 }

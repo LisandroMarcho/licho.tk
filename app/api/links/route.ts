@@ -1,4 +1,6 @@
 import { NextResponse } from "next/server";
+import genUid from "../../../lib/genUid";
+import { LinkDto } from "../../../lib/link";
 import { redis } from "../../../lib/redis";
 
 export async function GET() {
@@ -7,22 +9,22 @@ export async function GET() {
 
   if (typeof redisRes == "object") {
     response = Object.values(redisRes as object);
+    // response.sort((a, b) => new Date() - b);
   }
 
   return NextResponse.json(response);
 }
 
 export async function POST(req: Request) {
-  const { sourceUrl, shortUrl } = await req.json();
+  const { sourceUrl, shortUrl }: LinkDto = await req.json();
 
   const data = {
-    source_url: sourceUrl,
+    sourceUrl,
     clicks: 0,
     created_at: new Date(),
-    short_url: shortUrl,
+    shortUrl: shortUrl || genUid(8),
   };
 
-  // await redis.hset("links", { [shortUrl]: data });
-  console.log([...Array(6)].map((_) => (Math.random() * 10) | 0).join(""));
-  return NextResponse.json(data);
+  await redis.hset("links", { [shortUrl]: data });
+  return NextResponse.json(data, { status: 201 });
 }

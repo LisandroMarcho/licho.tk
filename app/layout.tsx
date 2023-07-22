@@ -18,10 +18,10 @@ export default function RootLayout({
     <>
       <ClerkProvider localization={esES}>
         <html lang="es">
-          <body className="bg-gradient-to-b from-gray-900 via-purple-900 to-violet-600 min-h-screen max-w-[1200px] mx-auto text-white">
+          <body className="bg-background min-h-screen max-w-[1200px] mx-auto text-text">
             <header className="flex justify-between items-center py-10">
               <div className="text-4xl font-bold relative">
-                <h1 className="absolute text-teal-600 top-[4px] left-[4px] -z-10">
+                <h1 className="absolute text-accent top-[4px] left-[4px] -z-10">
                   licho.tk
                 </h1>
                 <h1>licho.tk</h1>
