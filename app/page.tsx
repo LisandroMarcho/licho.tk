@@ -4,11 +4,11 @@ import LinkList from "../components/LinkList";
 
 function Home() {
   return (
-    <section className="flex flex-col md:flex-row gap-6">
-      <div className="w-1/2">
+    <section className="flex flex-col lg:flex-row gap-6">
+      <div className="order-2 lg:order-1 w-full lg:w-1/2">
         <LinkList />
       </div>
-      <div className="w-1/2">
+      <div className="order-1 lg:order-2 w-full lg:w-1/2">
         <SignedOut>
           <SignIn
             appearance={{

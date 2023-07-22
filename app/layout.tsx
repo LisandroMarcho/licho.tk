@@ -18,7 +18,7 @@ export default function RootLayout({
     <>
       <ClerkProvider localization={esES}>
         <html lang="es">
-          <body className="bg-background min-h-screen max-w-[1200px] mx-auto text-text">
+          <body className="bg-background min-h-screen px-14 lg:px-4 max-w-[1200px] mx-auto text-text">
             <header className="flex justify-between items-center py-10">
               <div className="text-4xl font-bold relative">
                 <h1 className="absolute text-accent top-[4px] left-[4px] -z-10">
