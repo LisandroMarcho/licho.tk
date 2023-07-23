@@ -2,7 +2,7 @@
 import useSWR from "swr";
 import { useEffect, useState } from "react";
 import LinkBox from "./LinkBox";
-import { LinkDto } from "../lib/link";
+import { LinkDto } from "@lib/link";
 
 export default function LinkList() {
   const [baseUrl, setBaseUrl] = useState("");
@@ -28,11 +28,7 @@ export default function LinkList() {
 
       {data &&
         data.map((link) => (
-          <LinkBox
-            key={link.shortUrl}
-            baseUrl={baseUrl}
-            shortLink={link}
-          ></LinkBox>
+          <LinkBox key={link.id} baseUrl={baseUrl} shortLink={link} />
         ))}
     </div>
   );

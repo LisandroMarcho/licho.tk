@@ -1,30 +1,21 @@
 import { NextResponse } from "next/server";
-import genUid from "../../../lib/genUid";
-import { LinkDto } from "../../../lib/link";
-import { redis } from "../../../lib/redis";
+import genUid from "@lib/genUid";
+import { LinkDto } from "@lib/link";
+import { conn } from "@lib/planetscale";
 
 export async function GET() {
-  const redisRes = await redis.hgetall("links");
-  let response: Object[] = [];
-
-  if (typeof redisRes == "object") {
-    response = Object.values(redisRes as object);
-    // response.sort((a, b) => new Date() - b);
-  }
-
-  return NextResponse.json(response);
+  const { rows } = await conn.execute("SELECT * FROM links LIMIT 15;");
+  return NextResponse.json(rows);
 }
 
 export async function POST(req: Request) {
-  const { sourceUrl, shortUrl }: LinkDto = await req.json();
+  let { sourceUrl, shortUrl }: LinkDto = await req.json();
+  shortUrl = shortUrl || genUid(8);
 
-  const data = {
+  await conn.execute("INSERT INTO links (shortUrl, sourceUrl) VALUES (?, ?)", [
+    shortUrl,
     sourceUrl,
-    clicks: 0,
-    created_at: new Date(),
-    shortUrl: shortUrl || genUid(8),
-  };
+  ]);
 
-  await redis.hset("links", { [shortUrl]: data });
-  return NextResponse.json(data, { status: 201 });
+  return NextResponse.json({ shortUrl, sourceUrl }, { status: 201 });
 }

@@ -1,13 +1,20 @@
 import { redirect, notFound } from "next/navigation";
-import type { LinkDto } from "../../../lib/link";
-import { redis } from "../../../lib/redis";
+import { conn } from "@lib/planetscale";
 
 async function getUrl(shortUrl: string) {
-  return await redis.hget<LinkDto>("links", shortUrl);
+  const result = await conn.execute(
+    "SELECT sourceUrl FROM links WHERE shortUrl = ?",
+    [shortUrl]
+  );
+
+  // @ts-ignore
+  if (result.rows[0]?.sourceUrl) return result.rows[0].sourceUrl as string;
+
+  return null;
 }
 
 export default async function Page({ params }: { params: { id: string } }) {
-  const shortLink = await getUrl(params.id);
-  if (shortLink?.sourceUrl) redirect(shortLink.sourceUrl);
+  const sourceUrl = await getUrl(params.id);
+  if (sourceUrl) redirect(sourceUrl);
   else notFound();
 }

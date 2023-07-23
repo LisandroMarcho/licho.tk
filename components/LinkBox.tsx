@@ -1,4 +1,4 @@
-import type { LinkDto } from "../lib/link";
+import type { LinkDto } from "@lib/link";
 
 type Props = {
   shortLink: LinkDto;

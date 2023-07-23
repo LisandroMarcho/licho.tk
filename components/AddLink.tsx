@@ -3,7 +3,7 @@
 import axios from "axios";
 import { mutate } from "swr";
 import FormInput from "./FormInput";
-import type { CreateLinkDto } from "../lib/link";
+import type { CreateLinkDto } from "@lib/link";
 import { FormEventHandler, useId, useState } from "react";
 
 export default function AddLink() {

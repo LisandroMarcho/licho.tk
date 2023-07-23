@@ -2,7 +2,7 @@ import "./index.css";
 
 import { ClerkProvider, UserButton } from "@clerk/nextjs";
 import { esES } from "@clerk/localizations";
-import Footer from "../components/Footer";
+import Footer from "@components/Footer";
 
 export const metadata = {
   title: "licho.tk - url shortener",

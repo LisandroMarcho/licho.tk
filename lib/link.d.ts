@@ -4,6 +4,7 @@ export type CreateLinkDto = {
 };
 
 export type LinkDto = CreateLinkDto & {
+  id: number;
   clicks: number;
   createdAt: string;
 };
