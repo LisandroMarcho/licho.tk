@@ -9,19 +9,7 @@ async function Home() {
         <LinkList />
       </div>
       <div className="order-1 lg:order-2 w-full lg:w-1/2">
-        <SignedOut>
-          <SignIn
-            appearance={{
-              elements: { logoBox: "h-10" },
-              layout: {
-                socialButtonsVariant: "blockButton",
-              },
-            }}
-          />
-        </SignedOut>
-        <SignedIn>
-          <AddLink />
-        </SignedIn>
+        <AddLink />
       </div>
     </section>
   );

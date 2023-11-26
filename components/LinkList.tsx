@@ -7,7 +7,7 @@ import { LinkDto } from "@lib/link";
 export default function LinkList() {
   const [baseUrl, setBaseUrl] = useState("");
   const fetcher = (url) => fetch(url).then((res) => res.json());
-  const { data, isLoading } = useSWR<LinkDto[]>("/api/links", fetcher);
+  const { data, isLoading, error } = useSWR<LinkDto[]>("/api/links", fetcher);
 
   useEffect(() => {
     setBaseUrl(window.location.origin);
@@ -30,6 +30,12 @@ export default function LinkList() {
         data.map((link) => (
           <LinkBox key={link.id} baseUrl={baseUrl} shortLink={link} />
         ))}
+
+      {error && !isLoading && (
+        <div className="bg-red-200 border-red-500 border-[8px] p-4 text-black font-bold">
+          <p>Hubo un error inesperado</p>
+        </div>
+      )}
     </div>
   );
 }
