@@ -2,20 +2,18 @@ import type { Dispatch, SetStateAction } from "react";
 
 type FormInputProps = {
   id: string;
+  name: string;
   label: string;
-  value: string;
   tag?: boolean;
   required?: boolean;
   placeholder?: string;
   type?: "url" | "text";
-  setValue: Dispatch<SetStateAction<any>>;
 };
 
 export default function FormInput({
   id,
+  name,
   label,
-  value,
-  setValue,
   tag = false,
   type = "url",
   placeholder = "",
@@ -33,12 +31,11 @@ export default function FormInput({
           </span>
         )}
         <input
+          name={name}
           type={type}
           id={id}
           placeholder={placeholder}
           required={required}
-          value={value}
-          onChange={(e) => setValue(e.target.value)}
           className="bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm p-2.5"
         />
       </div>
