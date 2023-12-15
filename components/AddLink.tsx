@@ -7,16 +7,22 @@ import type { CreateLinkDto } from "@lib/link";
 import { FormEventHandler, useId, useState } from "react";
 
 export default function AddLink() {
-  const [sourceUrl, setSourceUrl] = useState("");
-  const [shortUrl, setShortUrl] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const id = useId();
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
 
+    const { sourceUrl, shortUrl } = e.target as EventTarget & {
+      sourceUrl: HTMLInputElement;
+      shortUrl: HTMLInputElement;
+    };
+
     setIsLoading(true);
-    await axios.post<CreateLinkDto>("/api/links", { sourceUrl, shortUrl });
+    await axios.post<CreateLinkDto>("/api/links", {
+      sourceUrl: sourceUrl.value,
+      shortUrl: shortUrl.value,
+    });
     setIsLoading(false);
     mutate("/api/links");
   };
@@ -27,18 +33,16 @@ export default function AddLink() {
       onSubmit={handleSubmit}
     >
       <FormInput
+        name="sourceUrl"
         id={`${id}-source-url`}
         label="URL original"
-        setValue={setSourceUrl}
-        value={sourceUrl}
         placeholder="https://example.com/long-url"
         required={true}
       />
       <FormInput
+        name="shortUrl"
         id={`${id}-short-url`}
         label="URL personalizada"
-        setValue={setShortUrl}
-        value={shortUrl}
         placeholder="Mi-Link"
         type="text"
         tag={true}
