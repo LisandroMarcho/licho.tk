@@ -1,7 +1,7 @@
 import "./index.css";
 
 import Footer from "@components/Footer";
-import { getServerSession } from "next-auth";
+import UserAuth from "@components/UserAuth";
 
 export const metadata = {
   title: "licho.tk - url shortener",
@@ -13,8 +13,6 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const session = await getServerSession();
-
   return (
     <html lang="es">
       <body className="bg-background min-h-screen px-14 lg:px-4 max-w-[1200px] mx-auto text-text">
@@ -25,7 +23,7 @@ export default async function RootLayout({
             </h1>
             <h1>licho.tk</h1>
           </div>
-          <div>{session?.user?.name}</div>
+          <UserAuth />
         </header>
         <main className="mb-5">{children}</main>
         <Footer />
